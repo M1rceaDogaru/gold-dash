@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://tileset.png" type="Texture" id=1]
+[ext_resource path="res://1Minute/Coin.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "Hover"
+length = 3.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -0.038124, -0.25, 0, 0.4, -2.01207, -3.02378, -0.4, 0.389433, 0.7, 1.1683, 1.97395, -0.25, 0, 0.4, -0.129811, 0.091687, -0.2, 0.843771, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.8, 2.2, 3 )
+}
+
+[node name="Coin" type="Area2D"]
+collision_layer = 16
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Hover"
+reset_on_save = false
+playback_speed = 1.5
+method_call_mode = 1
+anims/Hover = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.469116, 1.76259 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 48, 32, 16, 16 )
+
+[connection signal="body_entered" from="." to="." method="body_entered"]
